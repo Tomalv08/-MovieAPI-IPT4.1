@@ -1,0 +1,116 @@
+﻿@page "/MovieSearch"
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@using MovieAPI_IPT4_1.Models
+
+<div class="container mt-5">
+    <h2 class="text-center display-4">Movie Search</h2> <!-- Titel ähnlich wie in MovieList -->
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="input-group input-group-lg">
+                <input @bind="searchText" class="form-control" placeholder="Nach Titel oder Id filtern" />
+                <div class="input-group-append">
+                    <button @onclick="SearchMovies" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+            <div class="mt-3">
+                <!-- "Type"-Feld unter dem Suchfeld -->
+                <label class="d-block">Type:</label>
+                @foreach (var type in new[] { "movie", "series", "episode" })
+                {
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" name="searchType" value="@type" @oninput="() => SetSearchType(type)" />
+                        <label class="form-check-label">@type</label>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        @if (searchPerformed)
+        {
+            if (Movies != null && Movies.Any())
+            {
+                foreach (var movie in Movies)
+                {
+                    <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <span style="cursor:pointer; color:blue" @onclick="() => SelectMovie(movie)">@movie.Title</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <p class="mt-4 text-center">No search results found.</p>
+            }
+        }
+    </div>
+
+    @if (selectedMovie != null)
+    {
+        <div class="row">
+            <div class="col text-center">
+                <button class="btn btn-secondary mt-3" @onclick="GoToMovieDetails">Go to Movie Details</button>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<Movie>? Movies;
+    private string searchText = "";
+    private string searchType = "movie";
+    private Movie? selectedMovie;
+    private bool searchPerformed = false;
+
+    private async Task SearchMovies()
+    {
+        searchPerformed = true;
+        selectedMovie = null; // Reset the selected movie
+        try
+        {
+            var response = await httpClient.GetFromJsonAsync<MovieSearchResponse>($"https://www.omdbapi.com/?apikey=a37bbf56&s={searchText}&type={searchType}");
+
+            if (response != null && response.Search != null)
+            {
+                Movies = response.Search.ToList();
+            }
+            else
+            {
+                Movies = new List<Movie>();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"An error occurred: {ex.Message}");
+        }
+    }
+
+
+    private void SelectMovie(Movie movie)
+    {
+        selectedMovie = movie;
+    }
+
+    private void GoToMovieDetails()
+    {
+        if (selectedMovie != null)
+        {
+            NavigationManager.NavigateTo($"/MovieDetails/{selectedMovie.Title}");
+        }
+    }
+
+    public string IsTypeSelected(string type)
+    {
+        return searchType == type ? "checked" : "";
+    }
+
+    private void SetSearchType(string type)
+    {
+        searchType = type;
+    }
+}

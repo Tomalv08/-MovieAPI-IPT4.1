@@ -1,0 +1,114 @@
+﻿@page "/PlotPage"
+
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+
+@using MovieAPI_IPT4_1.Models
+@using Microsoft.AspNetCore.Components
+
+<h2 class="text-center display-4 mt-3">Plotpage</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <input type="text" @bind="title" class="form-control form-control-lg mt-3" placeholder="Filmtitel eingeben..." />
+            <button class="btn btn-primary btn-lg btn-block mt-2" @onclick="LoadMovieDetails">Filmdetails laden</button>
+        </div>
+    </div>
+
+    @if (MovieDetails != null)
+    {
+        <div class="card mt-3">
+            <div class="card-header">
+                <h3>@MovieDetails.Title</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Jahr:</strong> @MovieDetails.Year</p>
+                <p><strong>Genre:</strong> @MovieDetails.Genre</p>
+                <p><strong>Schauspieler:</strong> @MovieDetails.Actors</p>
+                <p><strong>Handlung:</strong> @MovieDetails.Plot</p>
+                <p><strong>IMDb Bewertung:</strong> @MovieDetails.imdbRating</p>
+                <p><strong>Metascore:</strong> @MovieDetails.Metascore</p>
+                <p><strong>IMDb Stimmen:</strong> @MovieDetails.imdbVotes</p>
+            </div>
+        </div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <button class="btn btn-info btn-block" @onclick="ToggleCommentsVisibility">Kommentare laden</button>
+        </div>
+    </div>
+    }
+    @if (ShowComments)
+    {
+        <div class="card mt-3">
+            <div class="card-body">
+                <h4>Kommentare:</h4>
+                <KommentarBereich Kommentare="@Kommentare" OnAddComment="AddCommentToMovie" />
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private Movie? MovieDetails;
+    private string title = "";
+    private List<Kommentar> Kommentare = new List<Kommentar>();
+    private bool ShowComments = false;
+    private string ErrorMessage;
+    private bool IsLoading;
+
+    // Diese Methode wird aufgerufen, wenn die Komponente initialisiert wird.
+    protected override void OnInitialized()
+    {
+        // Hinzufügen von Testkommentaren
+        Kommentare.Add(new Kommentar("Toller Film!", 3, 1));
+        Kommentare.Add(new Kommentar("Nicht schlecht, aber das Buch war besser.", 5, 2));
+        Kommentare.Add(new Kommentar("Ich fand den Film langweilig.", 1, 4));
+    }
+
+    private async Task LoadMovieDetails()
+    {
+        IsLoading = true;
+        ErrorMessage = null;
+        MovieDetails = null;
+        Console.WriteLine("LoadMovieDetails wird aufgerufen.");
+        try
+        {
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                var result = await httpClient.GetFromJsonAsync<Movie>($"https://www.omdbapi.com/?apikey=55c7fefc&t={title}&plot=full");
+
+                if (result != null)
+                {
+                    MovieDetails = result;
+                }
+                else
+                {
+                    ErrorMessage = "Keine Details zum Film gefunden.";
+                }
+            }
+            else
+            {
+                ErrorMessage = "Bitte geben Sie einen Filmtitel ein.";
+            }
+        }
+        catch (Exception ex)
+        {
+            ErrorMessage = $"Ein Fehler ist aufgetreten: {ex.Message}";
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    private void ToggleCommentsVisibility()
+    {
+        ShowComments = !ShowComments;
+    }
+
+    private void AddCommentToMovie(string commentText)
+    {
+        Kommentare.Add(new Kommentar(commentText, 0, 0));
+    }
+    }

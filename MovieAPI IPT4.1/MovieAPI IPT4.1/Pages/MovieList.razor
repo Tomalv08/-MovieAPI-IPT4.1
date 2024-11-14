@@ -1,0 +1,86 @@
+﻿@page "/"
+@inject HttpClient httpClient
+@inject NavigationManager NavigationManager
+@using MovieAPI_IPT4_1.Models 
+
+<div class="container mt-5">
+    <h2 class="text-center display-4">Movie List</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <input @bind="filterText" class="form-control form-control-lg mt-3" placeholder="Nach Titel filtern oder imdbID" />
+            <button @onclick="SearchMovies" class="btn btn-primary btn-lg btn-block mt-2">Suchen</button>
+        </div>
+    </div>
+    @if (Movies != null && Movies.Any())
+    {
+        <div class="row mt-4">
+            @foreach (var movie in Movies.Where(m => string.IsNullOrEmpty(filterText) || m.Title.Contains(filterText, StringComparison.OrdinalIgnoreCase)))
+            {
+                <div class="col-sm-12 col-md-6 col-lg-4 col-xl-3 mb-4">
+                    <div class="card h-100">
+                        <img src="@movie.Poster" alt="@movie.Title" class="card-img-top" />
+                        <div class="card-body">
+                            <h5 class="card-title">@movie.Title</h5>
+                            <p class="card-text">@movie.Genre</p>
+                            <button class="btn btn-primary" @onclick="() => SelectMovie(movie)">Details</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <p class="mt-4 text-center">Keine Suchergebnisse gefunden.</p>
+    }
+
+    @if (selectedMovie != null)
+    {
+        <div class="row">
+            <div class="col text-center">
+                <button class="btn btn-secondary mt-3" @onclick="GoToMovieDetails">Go to Movie Details</button>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private List<Movie>? Movies;
+    private string filterText = "";
+    private Movie? selectedMovie;
+    private async Task SearchMovies()
+    {
+        try
+        {
+            var response = await httpClient.GetFromJsonAsync<MovieListResponse>($"https://www.omdbapi.com/?apikey=a37bbf56&s={filterText}&type=movie");
+
+            Movies = response?.Search ?? new List<Movie>();
+        }
+        catch (Exception ex)
+        {
+            // Fehler behandeln (z. B. protokollieren oder Fehlermeldung anzeigen)
+            Console.Error.WriteLine($"Ein Fehler ist aufgetreten: {ex.Message}");
+        }
+    }
+
+    private void SelectMovie(Movie movie)
+    {
+        if (movie != null)
+        {
+            selectedMovie = movie;
+            NavigationManager.NavigateTo($"/MovieDetails/{movie.Title}");
+        }
+        else
+        {
+
+        }
+    }
+
+    private void GoToMovieDetails()
+    {
+        if (selectedMovie != null)
+        {
+            NavigationManager.NavigateTo($"/MovieDetails/{selectedMovie.Title}");
+        }
+    }
+}

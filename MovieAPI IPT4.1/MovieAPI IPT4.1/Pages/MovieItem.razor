@@ -1,0 +1,35 @@
+﻿@inherits ComponentBase
+@using MovieAPI_IPT4_1.Models
+
+<div class="movie-item" @onclick="() => SelectMovie(Movie)">
+    <img src="@Movie.Poster" alt="Filmplakat" />
+    <h4>@Movie.Title</h4>
+    <p>@Movie.Year</p>
+</div>
+
+<style>
+    .movie-item {
+        margin: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        cursor: pointer;
+        max-width: 200px;
+    }
+
+    .movie-item:hover {
+        background-color: #f5f5f5;
+    }
+</style>
+
+@code {
+    [Parameter]
+    public Movie Movie { get; set; }
+
+    [Parameter]
+    public EventCallback<Movie> OnMovieSelected { get; set; }
+
+    private async Task SelectMovie(Movie movie)
+    {
+        await OnMovieSelected.InvokeAsync(movie);
+    }
+}

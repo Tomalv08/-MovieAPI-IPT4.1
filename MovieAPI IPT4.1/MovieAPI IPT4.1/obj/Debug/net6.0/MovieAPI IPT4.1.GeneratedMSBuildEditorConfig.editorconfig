@@ -1,0 +1,67 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = MovieAPI_IPT4.1
+build_property.RootNamespace = MovieAPI_IPT4.1
+build_property.ProjectDir = C:\Users\alves\OneDrive - sluz\SchulJahr_2023-2024_2IMS\Informatik\IPT 4.1\Movie-API Project\movieapi-ipt4.1\MovieAPI IPT4.1\MovieAPI IPT4.1\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 6.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Users\alves\OneDrive - sluz\SchulJahr_2023-2024_2IMS\Informatik\IPT 4.1\Movie-API Project\movieapi-ipt4.1\MovieAPI IPT4.1\MovieAPI IPT4.1
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Users/alves/OneDrive - sluz/SchulJahr_2023-2024_2IMS/Informatik/IPT 4.1/Movie-API Project/movieapi-ipt4.1/MovieAPI IPT4.1/MovieAPI IPT4.1/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alves/OneDrive - sluz/SchulJahr_2023-2024_2IMS/Informatik/IPT 4.1/Movie-API Project/movieapi-ipt4.1/MovieAPI IPT4.1/MovieAPI IPT4.1/Pages/KommentarBereich.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcS29tbWVudGFyQmVyZWljaC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alves/OneDrive - sluz/SchulJahr_2023-2024_2IMS/Informatik/IPT 4.1/Movie-API Project/movieapi-ipt4.1/MovieAPI IPT4.1/MovieAPI IPT4.1/Pages/MovieDetail.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aWVEZXRhaWwucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alves/OneDrive - sluz/SchulJahr_2023-2024_2IMS/Informatik/IPT 4.1/Movie-API Project/movieapi-ipt4.1/MovieAPI IPT4.1/MovieAPI IPT4.1/Pages/MovieItem.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aWVJdGVtLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alves/OneDrive - sluz/SchulJahr_2023-2024_2IMS/Informatik/IPT 4.1/Movie-API Project/movieapi-ipt4.1/MovieAPI IPT4.1/MovieAPI IPT4.1/Pages/MovieList.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aWVMaXN0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alves/OneDrive - sluz/SchulJahr_2023-2024_2IMS/Informatik/IPT 4.1/Movie-API Project/movieapi-ipt4.1/MovieAPI IPT4.1/MovieAPI IPT4.1/Pages/MovieSearch.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW92aWVTZWFyY2gucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alves/OneDrive - sluz/SchulJahr_2023-2024_2IMS/Informatik/IPT 4.1/Movie-API Project/movieapi-ipt4.1/MovieAPI IPT4.1/MovieAPI IPT4.1/Pages/PlotPage.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUGxvdFBhZ2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alves/OneDrive - sluz/SchulJahr_2023-2024_2IMS/Informatik/IPT 4.1/Movie-API Project/movieapi-ipt4.1/MovieAPI IPT4.1/MovieAPI IPT4.1/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXFN1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alves/OneDrive - sluz/SchulJahr_2023-2024_2IMS/Informatik/IPT 4.1/Movie-API Project/movieapi-ipt4.1/MovieAPI IPT4.1/MovieAPI IPT4.1/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/alves/OneDrive - sluz/SchulJahr_2023-2024_2IMS/Informatik/IPT 4.1/Movie-API Project/movieapi-ipt4.1/MovieAPI IPT4.1/MovieAPI IPT4.1/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-hrw4by75zi
+
+[C:/Users/alves/OneDrive - sluz/SchulJahr_2023-2024_2IMS/Informatik/IPT 4.1/Movie-API Project/movieapi-ipt4.1/MovieAPI IPT4.1/MovieAPI IPT4.1/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkXE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-zoqczxeso2

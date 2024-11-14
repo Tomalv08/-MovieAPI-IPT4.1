@@ -1,0 +1,58 @@
+﻿@using MovieAPI_IPT4_1.Models
+
+<div class="kommentar-bereich">
+    @if (Kommentare != null && Kommentare.Any())
+    {
+        foreach (var kommentar in Kommentare)
+        {
+            <div class="card mt-2">
+                <div class="card-body">
+                    <p class="card-text">@kommentar.Text</p>
+                    <button class="btn btn-outline-success btn-sm" @onclick="() => LikeComment(kommentar)">Like (@kommentar.Likes)</button>
+                    <button class="btn btn-outline-danger btn-sm" @onclick="() => DislikeComment(kommentar)">Dislike (@kommentar.Dislikes)</button>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>Keine Kommentare vorhanden. Fügen Sie einen Kommentar hinzu!</p>
+    }
+
+    <div class="input-group mt-3">
+        <input type="text" @bind="newCommentText" class="form-control" placeholder="Schreiben Sie einen Kommentar..." />
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button" @onclick="CallAddComment">Kommentar hinzufügen</button>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public List<Kommentar> Kommentare { get; set; }
+    [Parameter]
+    public EventCallback<string> OnAddComment { get; set; }
+
+    private string newCommentText;
+
+    private async Task CallAddComment()
+    {
+        if (!string.IsNullOrWhiteSpace(newCommentText))
+        {
+            await OnAddComment.InvokeAsync(newCommentText);
+            newCommentText = ""; // Clear the input after adding a comment
+        }
+    }
+
+    private void LikeComment(Kommentar kommentar)
+    {
+        kommentar.Likes++;
+        Kommentare = new List<Kommentar>(Kommentare); // This is to trigger the UI update
+    }
+
+    private void DislikeComment(Kommentar kommentar)
+    {
+        kommentar.Dislikes++;
+        Kommentare = new List<Kommentar>(Kommentare); // This is to trigger the UI update
+    }
+
+}
